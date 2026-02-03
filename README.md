@@ -1,5 +1,9 @@
 # PaddleOCR‑VL Local Web UI (Docker)
 
+> **Disclaimer**  
+> I’m not a programmer, and this entire project was built with the help of AI.  
+> I’d be very happy if others improve it and make it more useful for people.
+
 This repository provides a **local** web interface for PaddleOCR‑VL.  
 It runs on **localhost**, uses **Docker** for inference, and stores results under `data/`.
 
@@ -43,3 +47,7 @@ You can also download ZIP files from the UI.
 
 - The UI is in English.
 - The server always uses **PaddleOCR‑VL v1** (no model selection).
+
+## Contributing
+
+If you want to improve the UI/UX, performance, or add features (DOCX/PDF export, better previews, queue management), feel free to open issues or PRs.
