@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PaddleOCR‑VL Local</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="title">PaddleOCR‑VL Local</div>
+      <div class="status" id="dockerStatus">Docker: …</div>
+      <button class="btn" id="pullBtn">Pull image</button>
+    </header>
+
+    <main class="layout">
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <h2>History</h2>
+          <button class="btn icon" id="toggleSidebar" title="Collapse sidebar">⟨</button>
+        </div>
+        <div id="jobsList" class="jobs-list"></div>
+      </aside>
+
+      <section class="main">
+        <div class="tabs">
+          <button class="tab active" data-tab="upload">Upload</button>
+          <button class="tab" data-tab="results">Outputs & Preview</button>
+        </div>
+
+        <div id="tab-upload" class="tab-panel">
+          <section class="card">
+            <h2>Upload</h2>
+            <div id="dropzone" class="dropzone">
+              Drag & drop files here
+              <span class="small">PDF / PNG / JPG / TIFF / WEBP</span>
+              <input id="fileInput" type="file" multiple accept=".pdf,.png,.jpg,.jpeg,.tif,.tiff,.webp,.bmp" />
+            </div>
+            <div id="fileList" class="file-list"></div>
+            <div class="upload-controls">
+              <div class="upload-left">
+                <div class="model-box">
+                  <div class="model-label">Model</div>
+                  <div class="model-value">PaddleOCR‑VL (v1)</div>
+                </div>
+                <div class="model-box">
+                  <div class="model-label">Device</div>
+                  <select id="deviceSelect" class="device-select">
+                    <option value="gpu" selected>gpu</option>
+                    <option value="cpu">cpu</option>
+                  </select>
+                </div>
+              </div>
+              <button class="btn primary" id="startBtn">Start</button>
+            </div>
+          </section>
+        </div>
+
+        <div id="tab-results" class="tab-panel hidden">
+          <div class="outputs-grid">
+            <section class="panel outputs-left">
+              <div class="card-header">
+                <h2>Outputs</h2>
+                <button class="btn" id="downloadZipBtn" disabled>Download ZIP</button>
+              </div>
+              <div id="outputsList" class="outputs-list"></div>
+            </section>
+            <section class="panel outputs-right">
+              <div class="card-header">
+                <h2>Preview</h2>
+                <div id="previewTitle" class="small">No file selected</div>
+              </div>
+              <div id="previewArea" class="preview"></div>
+            </section>
+          </div>
+        </div>
+
+        <section class="card logs-panel" id="logsPanel">
+          <div class="card-header">
+            <h2>Logs</h2>
+          </div>
+          <pre id="logArea" class="log"></pre>
+        </section>
+      </section>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
