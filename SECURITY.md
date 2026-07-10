@@ -1,22 +1,32 @@
 # Security Policy
 
-> **Disclaimer**  
-> This project was built with the help of AI, and I am not a professional software engineer.  
-> Please treat this repository as a personal/experimental project.  
-> If you use it, you do so at your own risk.
+## Supported versions
 
-## Supported Versions
+Security fixes are applied to the latest release and the default branch.
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 1.x     | :white_check_mark: |
-| < 1.0   | :x:                |
+| Version | Supported |
+| --- | --- |
+| Latest release | Yes |
+| `main` | Yes |
+| Older releases | No |
 
-## Reporting a Vulnerability
+## Reporting a vulnerability
 
-If you believe you’ve found a security issue:
+Please **do not open a public issue** and do not publish proof-of-concept details before a fix is available.
 
-- **Preferred channel:** open a GitHub Issue with the label **security**  
-- Please include a clear description, reproduction steps, and potential impact.
+Use GitHub's [private vulnerability reporting form](https://github.com/egore4606/paddle-ocr-ui/security/advisories/new). Include:
 
-I will do my best to respond, but **response times are not guaranteed**.
+- the affected version or commit;
+- impact and realistic attack scenario;
+- reproduction steps or a minimal proof of concept;
+- suggested mitigation, if known.
+
+Reports will be acknowledged as capacity permits. This is a community-maintained personal project, so no response-time or remediation SLA is guaranteed.
+
+## Deployment assumptions
+
+The application is localhost-first and has no authentication or authorization. Binding it to a public or shared network interface creates risks that are outside the supported deployment model. Uploaded files, logs, and OCR results may contain confidential data and must be protected accordingly.
+
+## Scope
+
+Vulnerabilities in this repository's Python or browser code are in scope. Issues that exist only in PaddleOCR, PaddlePaddle, Docker, NVIDIA software, or the upstream container image should also be reported to the relevant upstream project.

@@ -1,0 +1,18 @@
+"area: backend":
+  - changed-files:
+      - any-glob-to-any-file: "server/**"
+"area: frontend":
+  - changed-files:
+      - any-glob-to-any-file: "web/**"
+"area: tests":
+  - changed-files:
+      - any-glob-to-any-file: ["tests/**", "requirements-dev.txt", "pyproject.toml"]
+"area: documentation":
+  - changed-files:
+      - any-glob-to-any-file: ["**/*.md", "docs/**", "assets/**"]
+"area: ci":
+  - changed-files:
+      - any-glob-to-any-file: ".github/workflows/**"
+"area: dependencies":
+  - changed-files:
+      - any-glob-to-any-file: ["**/requirements*.txt", ".github/dependabot.yml"]

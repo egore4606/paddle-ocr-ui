@@ -1,0 +1,33 @@
+name: Feature request
+description: Suggest a focused improvement
+title: "[Feature]: "
+labels: ["type: feature", "status: needs-triage"]
+body:
+  - type: checkboxes
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues and discussions.
+          required: true
+  - type: textarea
+    attributes:
+      label: Problem
+      description: What problem or workflow limitation should be solved?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Proposed outcome
+      description: Describe the user-visible result, not only an implementation.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Alternatives and trade-offs
+  - type: checkboxes
+    attributes:
+      label: Impact
+      options:
+        - label: This changes stored data or job compatibility.
+        - label: This changes the security or localhost-only model.
+        - label: This needs new dependencies or a larger container/runtime.

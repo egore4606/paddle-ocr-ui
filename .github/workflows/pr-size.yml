@@ -1,0 +1,49 @@
+name: PR size
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  size:
+    name: Apply size label
+    runs-on: ubuntu-latest
+    steps:
+      - name: Calculate changed-line size
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const pull = context.payload.pull_request;
+            const changedLines = pull.additions + pull.deletions;
+            const sizeLabels = ["size: xs", "size: s", "size: m", "size: l", "size: xl"];
+            const selected = changedLines <= 20
+              ? "size: xs"
+              : changedLines <= 100
+                ? "size: s"
+                : changedLines <= 300
+                  ? "size: m"
+                  : changedLines <= 700
+                    ? "size: l"
+                    : "size: xl";
+            const current = pull.labels.map((label) => label.name);
+            for (const label of sizeLabels) {
+              if (label !== selected && current.includes(label)) {
+                await github.rest.issues.removeLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: pull.number,
+                  name: label,
+                });
+              }
+            }
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pull.number,
+              labels: [selected],
+            });

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions and ideas
+    url: https://github.com/egore4606/paddle-ocr-ui/discussions
+    about: Ask for help or discuss an idea before opening an issue.
+  - name: Report a vulnerability privately
+    url: https://github.com/egore4606/paddle-ocr-ui/security/advisories/new
+    about: Do not disclose security problems in a public issue.

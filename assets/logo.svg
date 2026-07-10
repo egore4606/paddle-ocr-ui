@@ -1,0 +1,34 @@
+<svg width="1200" height="360" viewBox="0 0 1200 360" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">PaddleOCR-VL Local Web UI</title>
+  <desc id="desc">A document passing through a blue scanner into structured text</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="360" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#07172F"/><stop offset="0.55" stop-color="#0B2B53"/><stop offset="1" stop-color="#0B4564"/>
+    </linearGradient>
+    <linearGradient id="beam" x1="215" y1="87" x2="400" y2="284" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#62E6FF"/><stop offset="1" stop-color="#4D7CFE"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="8"/></filter>
+  </defs>
+  <rect width="1200" height="360" rx="32" fill="url(#bg)"/>
+  <circle cx="1100" cy="48" r="160" fill="#1AC9B7" fill-opacity=".08"/>
+  <circle cx="80" cy="335" r="190" fill="#477BFF" fill-opacity=".1"/>
+  <g transform="translate(90 48)">
+    <rect x="20" y="20" width="250" height="264" rx="24" fill="#EAF7FF" fill-opacity=".08" stroke="#7BDFF4" stroke-opacity=".38"/>
+    <path d="M82 64h102l38 38v122c0 13-11 24-24 24H82c-13 0-24-11-24-24V88c0-13 11-24 24-24Z" fill="#F7FCFF"/>
+    <path d="M184 64v38h38" fill="#D4E9F7"/>
+    <path d="M91 130h99M91 161h75M91 192h91" stroke="#22517B" stroke-width="12" stroke-linecap="round"/>
+    <rect x="43" y="155" width="208" height="28" rx="14" fill="url(#beam)" fill-opacity=".35" filter="url(#glow)"/>
+    <rect x="43" y="160" width="208" height="16" rx="8" fill="url(#beam)"/>
+  </g>
+  <g transform="translate(410 82)">
+    <text x="0" y="62" fill="#F6FBFF" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="61" font-weight="750" letter-spacing="-1">PaddleOCR-VL</text>
+    <text x="2" y="120" fill="#7FE5F4" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="32" font-weight="600">Local Web UI</text>
+    <text x="2" y="178" fill="#C6D8E8" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="23">Private document OCR · Docker-powered · Local-first</text>
+    <g transform="translate(2 210)">
+      <rect width="136" height="38" rx="19" fill="#1473E6"/><text x="68" y="26" text-anchor="middle" fill="white" font-family="Segoe UI, Arial" font-size="17" font-weight="650">PDF &amp; images</text>
+      <rect x="150" width="110" height="38" rx="19" fill="#0EAA91"/><text x="205" y="26" text-anchor="middle" fill="white" font-family="Segoe UI, Arial" font-size="17" font-weight="650">CPU / GPU</text>
+      <rect x="274" width="128" height="38" rx="19" fill="#334E78"/><text x="338" y="26" text-anchor="middle" fill="white" font-family="Segoe UI, Arial" font-size="17" font-weight="650">Local storage</text>
+    </g>
+  </g>
+</svg>

@@ -1,7 +1,10 @@
+import logging
 import shutil
 import subprocess
 import zipfile
+from contextlib import asynccontextmanager
 from pathlib import Path
+from typing import Literal
 
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, PlainTextResponse
@@ -11,15 +14,23 @@ from . import jobs, queue
 from .config import ALLOWED_EXTS, DEFAULT_DEVICE, DEFAULT_PIPELINE_VERSION, IMAGE, WEB_DIR, ensure_dirs
 from .utils import is_safe_subpath, list_files, safe_filename
 
-app = FastAPI()
-
-app.mount("/static", StaticFiles(directory=WEB_DIR), name="static")
+logger = logging.getLogger(__name__)
 
 
-@app.on_event("startup")
-def _startup() -> None:
+@asynccontextmanager
+async def lifespan(_app: FastAPI):
     ensure_dirs()
     queue.start_worker()
+    yield
+
+app = FastAPI(
+    title="PaddleOCR-VL Local Web UI",
+    description="A localhost-first job interface for PaddleOCR-VL.",
+    version="1.0.0",
+    lifespan=lifespan,
+)
+
+app.mount("/static", StaticFiles(directory=WEB_DIR), name="static")
 
 
 @app.get("/")
@@ -47,8 +58,9 @@ def docker_status() -> dict:
             status["error"] = info.stderr.strip() or info.stdout.strip()
             return status
         status["docker_ok"] = True
-    except Exception as exc:  # noqa: BLE001
-        status["error"] = str(exc)
+    except Exception:  # noqa: BLE001
+        logger.exception("Unable to inspect Docker status")
+        status["error"] = "Docker is not available"
         return status
 
     inspect = subprocess.run(  # noqa: S603
@@ -70,20 +82,19 @@ def docker_pull() -> JSONResponse:
             text=True,
             encoding="utf-8",
         )
-        return JSONResponse(
-            {
-                "ok": pull.returncode == 0,
-                "output": (pull.stdout or "") + (pull.stderr or ""),
-            }
-        )
-    except Exception as exc:  # noqa: BLE001
-        return JSONResponse({"ok": False, "output": str(exc)})
+        if pull.returncode == 0:
+            return JSONResponse({"ok": True, "output": pull.stdout or "Image downloaded"})
+        logger.error("Docker image pull failed: %s", (pull.stderr or pull.stdout or "unknown error").strip())
+        return JSONResponse({"ok": False, "output": "Unable to pull the OCR image. Check the server logs."})
+    except Exception:  # noqa: BLE001
+        logger.exception("Unable to pull the Docker image")
+        return JSONResponse({"ok": False, "output": "Docker is not available"})
 
 
 @app.post("/api/jobs")
 def create_job(
     files: list[UploadFile] = File(...),
-    device: str = Form(DEFAULT_DEVICE),
+    device: Literal["cpu", "gpu"] = Form(DEFAULT_DEVICE),
 ) -> dict:
     if not files:
         raise HTTPException(status_code=400, detail="No files uploaded")
@@ -129,13 +140,16 @@ def list_jobs() -> list[dict]:
 def get_job(job_id: str) -> dict:
     try:
         return jobs.load_job(job_id)
-    except FileNotFoundError:
-        raise HTTPException(status_code=404, detail="Job not found")
+    except (FileNotFoundError, ValueError):
+        raise HTTPException(status_code=404, detail="Job not found") from None
 
 
 @app.get("/api/jobs/{job_id}/logs")
 def get_logs(job_id: str, offset: int = 0) -> dict:
-    path = jobs.job_log_path(job_id)
+    try:
+        path = jobs.job_log_path(job_id)
+    except ValueError:
+        raise HTTPException(status_code=404, detail="Job not found") from None
     if not path.exists():
         raise HTTPException(status_code=404, detail="Log not found")
     with path.open("r", encoding="utf-8", errors="replace") as f:
@@ -147,7 +161,10 @@ def get_logs(job_id: str, offset: int = 0) -> dict:
 
 @app.get("/api/jobs/{job_id}/files")
 def list_job_files(job_id: str) -> dict:
-    base = jobs.job_dir(job_id)
+    try:
+        base = jobs.job_dir(job_id)
+    except ValueError:
+        raise HTTPException(status_code=404, detail="Job not found") from None
     output_dir = base / "output"
     if not output_dir.exists():
         raise HTTPException(status_code=404, detail="Output not found")
@@ -156,7 +173,10 @@ def list_job_files(job_id: str) -> dict:
 
 @app.get("/api/jobs/{job_id}/file/{path:path}")
 def get_job_file(job_id: str, path: str):
-    base = jobs.job_dir(job_id)
+    try:
+        base = jobs.job_dir(job_id)
+    except ValueError:
+        raise HTTPException(status_code=404, detail="Job not found") from None
     output_dir = base / "output"
     target = (output_dir / path).resolve()
     if not is_safe_subpath(output_dir, target) or not target.exists():
@@ -168,7 +188,10 @@ def get_job_file(job_id: str, path: str):
 
 @app.get("/api/jobs/{job_id}/download")
 def download_job(job_id: str):
-    base = jobs.job_dir(job_id)
+    try:
+        base = jobs.job_dir(job_id)
+    except ValueError:
+        raise HTTPException(status_code=404, detail="Job not found") from None
     output_dir = base / "output"
     if not output_dir.exists():
         raise HTTPException(status_code=404, detail="Output not found")
@@ -176,6 +199,6 @@ def download_job(job_id: str):
     zip_path = base / "output.zip"
     with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zf:
         for p in output_dir.rglob("*"):
-            if p.is_file():
+            if p.is_file() and is_safe_subpath(output_dir, p.resolve()):
                 zf.write(p, p.relative_to(output_dir))
     return FileResponse(zip_path, filename=f"{job_id}.zip")
