@@ -3,9 +3,9 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
-from .config import IMAGE, PADDLEX_CACHE, PADDLEOCR_CACHE
 from . import jobs
-from .utils import ensure_dir, join_text, list_files, output_folder_name, safe_filename
+from .config import IMAGE, PADDLEOCR_CACHE, PADDLEX_CACHE
+from .utils import ensure_dir, join_text, list_files, output_folder_name
 
 
 def process_job(job_id: str) -> None:
@@ -21,7 +21,6 @@ def process_job(job_id: str) -> None:
     for item in job["files"]:
         original_name = item["name"]
         saved_name = item["saved_name"]
-        input_path = input_dir / saved_name
         file_output_dir = output_dir / output_folder_name(saved_name)
         ensure_dir(file_output_dir)
 

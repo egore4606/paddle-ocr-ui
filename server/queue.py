@@ -3,7 +3,6 @@ import threading
 
 from . import jobs, ocr
 
-
 _job_queue: queue.Queue[str] = queue.Queue()
 _worker_thread: threading.Thread | None = None
 

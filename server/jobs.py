@@ -1,3 +1,4 @@
+import re
 import uuid
 from pathlib import Path
 from typing import Any
@@ -5,9 +6,18 @@ from typing import Any
 from .config import JOBS_DIR
 from .utils import ensure_dir, now_iso, output_folder_name, read_json, safe_filename, write_json
 
+JOB_ID_PATTERN = re.compile(r"^[0-9a-f]{32}$")
+
+
+def validate_job_id(job_id: str) -> str:
+    """Return a valid job identifier or reject untrusted path input."""
+    if not JOB_ID_PATTERN.fullmatch(job_id):
+        raise ValueError("Invalid job ID")
+    return job_id
+
 
 def job_dir(job_id: str) -> Path:
-    return JOBS_DIR / job_id
+    return JOBS_DIR / validate_job_id(job_id)
 
 
 def job_log_path(job_id: str) -> Path:

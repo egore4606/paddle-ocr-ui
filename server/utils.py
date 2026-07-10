@@ -1,9 +1,9 @@
 import json
 import re
+from collections.abc import Iterable
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Iterable
-
+from typing import Any
 
 INVALID_CHARS = re.compile(r'[<>:"/\\\\|?*]')
 

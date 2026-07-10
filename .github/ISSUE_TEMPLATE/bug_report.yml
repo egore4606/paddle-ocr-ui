@@ -1,0 +1,52 @@
+name: Bug report
+description: Report a reproducible problem with the local UI or OCR workflow
+title: "[Bug]: "
+labels: ["type: bug", "status: needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve the project. Remove private document content, credentials, and personal paths from logs before posting.
+  - type: checkboxes
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues and discussions.
+          required: true
+        - label: This is not a security vulnerability.
+          required: true
+  - type: dropdown
+    attributes:
+      label: Area
+      options: [Web interface, API, Job queue, Docker or PaddleOCR, Output or preview, Documentation, Other]
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: What happened?
+      description: Describe the observed behavior and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Start the application with ...
+        2. Upload a non-sensitive sample ...
+        3. Select ...
+        4. Observe ...
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Environment
+      description: OS, Python, Docker, CPU/GPU, browser, and project version or commit
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Sanitized logs
+      render: text
+  - type: textarea
+    attributes:
+      label: Additional context
