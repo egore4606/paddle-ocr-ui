@@ -4,6 +4,8 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-07-11
+
 ### Added
 
 - Automated tests, linting, dependency review, release notes, and repository maintenance workflows.
@@ -22,5 +24,6 @@ All notable changes to this project are documented here. The format follows [Kee
 - PDF and image uploads, background processing, live logs, result previews, and ZIP downloads.
 - CPU and NVIDIA GPU execution modes.
 
-[Unreleased]: https://github.com/egore4606/paddle-ocr-ui/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/egore4606/paddle-ocr-ui/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/egore4606/paddle-ocr-ui/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/egore4606/paddle-ocr-ui/releases/tag/v1.0.0

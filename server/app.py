@@ -26,7 +26,7 @@ async def lifespan(_app: FastAPI):
 app = FastAPI(
     title="PaddleOCR-VL Local Web UI",
     description="A localhost-first job interface for PaddleOCR-VL.",
-    version="1.0.0",
+    version="1.1.0",
     lifespan=lifespan,
 )
 
