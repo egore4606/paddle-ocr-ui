@@ -4,6 +4,11 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Changed
+
+- Raised the minimum supported Python version to 3.11 (dropping EOL Python 3.10).
+- Updated runtime and development dependencies (`fastapi`, `uvicorn`, `python-multipart`, `httpx2`, `pytest`, and `ruff`).
+
 ## [1.1.0] - 2026-07-11
 
 ### Added

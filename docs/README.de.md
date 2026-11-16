@@ -26,7 +26,7 @@ PaddleOCR-VL Local Web UI ist eine kleine FastAPI-Anwendung, die OCR-Aufträge v
 
 ## Voraussetzungen
 
-- Python 3.10 oder neuer
+- Python 3.11 oder neuer
 - Docker Desktop oder Docker Engine
 - ungefähr 10 GB freier Speicher für Image und Modelle
 - für GPU-Betrieb: NVIDIA-GPU, aktueller Treiber und NVIDIA Container Toolkit
