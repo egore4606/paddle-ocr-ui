@@ -26,7 +26,7 @@ PaddleOCR-VL Local Web UI — небольшое приложение на FastA
 
 ## Требования
 
-- Python 3.10 или новее;
+- Python 3.11 или новее;
 - Docker Desktop или Docker Engine;
 - примерно 10 ГБ свободного места для образа и моделей;
 - для GPU: NVIDIA GPU, актуальный драйвер и поддержка NVIDIA Container Toolkit.

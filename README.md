@@ -9,7 +9,7 @@
   [![CodeQL](https://github.com/egore4606/paddle-ocr-ui/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/egore4606/paddle-ocr-ui/security/code-scanning)
   [![Release](https://img.shields.io/github/v/release/egore4606/paddle-ocr-ui?include_prereleases)](https://github.com/egore4606/paddle-ocr-ui/releases)
   [![License](https://img.shields.io/github/license/egore4606/paddle-ocr-ui)](LICENSE)
-  [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+  [![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 
   English · [Русский](docs/README.ru.md) · [Deutsch](docs/README.de.md)
 </div>
@@ -47,7 +47,7 @@ The Python server owns the queue and filesystem layout. Each job starts a short-
 
 ## Requirements
 
-- Python 3.10 or newer
+- Python 3.11 or newer
 - Docker Desktop or Docker Engine
 - Around 10 GB of free disk space for the OCR image and model cache
 - For GPU mode: an NVIDIA GPU, current drivers, and NVIDIA Container Toolkit support
